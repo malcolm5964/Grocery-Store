@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg " style="background-color: #d4ffe1">
+  <div class="container-fluid ps-5">
+    <a class="navbar-brand" href="/">
+      <img src="/navbar-icon.png" width="60" height="50">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Products
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/category/Beverage">Beverage</a></li>
+            <li><a class="dropdown-item" href="/category/Fruits">Fruit</a></li>
+            <li><a class="dropdown-item" href="/category/Meat">Meat</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold text-dark" href="/contact">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0 me-5">
+        <li class="nav-item"><a id="cart_btn" class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasCart"><img src="/cart.svg" alt="" width="40" height="35"></li></a>
+        <% if(!user) { %>
+        <li><a class="nav-link fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#loginModal"><img src="/person-fill.svg" alt="" width="40" height="35"></i>Login</a></li>
+        <% } else { %>
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"><img src="/box-arrow-right.svg" alt="" width="40" height="35"><%= user.username %></a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                <li><a class="dropdown-item"><%= user.username %></a></li>
+                <li><a class="dropdown-item" href="/account/logout">Sign Out</a></li>
+            </ul>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container" id="loginModalContainer">
+          <p class="text-center h1 fw-bold mb-5">Login</p>
+          <form action="/account/login" method="POST">
+            <div class="text-center mb-3"><img src="/person-fill.svg" class="me-3" alt="" width="25" height="25"><input type="text" name="username" placeholder="Your Username" size="30"></div>
+            <div class="text-center mb-3"><img src="/lock-fill.svg" class="me-3" alt="" width="25" height="25"><input type="password" name="password" placeholder="Password" size="30"></div>
+            <div class="text-center"><button type="submit" class="btn btn-success">LOGIN</button></div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center"><button type="button" class="btn btn-secondary" data-bs-target="#signUpModal" data-bs-toggle="modal">Create New Account</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <p class="text-center h1 fw-bold mb-5">SIGN UP</p>
+          <form id="signup_form" action="/account/signup" method="POST">
+            <div class="text-center mb-3"><img src="/person-fill.svg" class="me-3" alt="" width="25" height="25"><input type="text" name="username" placeholder="Your Username" size="30"></div>
+            <div class="text-center mb-3"><img src="/envelope-fill.svg" class="me-3" alt="" width="25" height="25"><input type="email" name="email" placeholder="Your Email" size="30"></div>
+            <div class="text-center mb-3"><img src="/lock-fill.svg" class="me-3" alt="" width="25" height="25"><input type="password" name="password" placeholder="Password" size="30"></div>
+            <div class="text-center mb-3"><img src="/key-fill.svg" class="me-3" alt="" width="25" height="25"><input type="password" placeholder="Repeat your passowrd" size="30"></div>
+            <div class="text-center"><button type="submit" class="btn btn-success">CREATE ACCOUNT</button></div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center"><button type="button" class="btn btn-secondary" data-bs-target="#loginModal" data-bs-toggle="modal">Login</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Off Canvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Your cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Include innerHTML-->
+  </div>
+</div>
+
+

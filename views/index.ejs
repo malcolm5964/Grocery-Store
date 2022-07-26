@@ -1,0 +1,155 @@
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/nav.ejs") %>
+
+        <!-- Display login error to execute script below @141-->
+        <% if (messages.error) { %>
+            <p id='errMessage' style="display: none;"><%= messages.error %></p>
+        <% } %>
+
+        <div class="container my-5">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="1000">
+                    <img src="/carousell_img1.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="1000">
+                    <img src="/carousell_img2.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="1000">
+                    <img src="/carousell_img3.jpg" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>  
+
+        <div class="container my-4">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <img src="/delivery_img.webp" class="me-3 img-fluid">
+                    <h7>Free Delivery</h7>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <img src="/freshness_img.png" class="me-3 img-fluid">
+                    <h7>Free Delivery for 50$ spent</h5>
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <img src="/exclusive_img.png" class="me-3 img-fluid">
+                    <h7>Free Delivery for 50$ spent</h5>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <div class="row border-bottom mb-3">
+                <div class="text-center h3">Beverages</div>
+            </div>
+            <div class="row justify-content-around">
+                <% beverages.forEach(function(beverage) { %>
+                    <div class="col-lg-2 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2" data-base64="<%= beverage.itemImage.data.toString('base64') %>" src="data:image/<%= beverage.itemImage.contentType %>;base64,<%= beverage.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= beverage.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= beverage.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold"><%= beverage.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="row">
+                <a class="text-center text-success h6 py-3" href="/category/beverage">VIEW MORE >></a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row border-bottom mb-3">
+                <div class="text-center h3">Fruits</div>
+            </div>
+            <div class="row justify-content-around">
+                <% fruits.forEach(function(fruit) { %>
+                    <div class="col-lg-2 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2"  data-base64="<%= fruit.itemImage.data.toString('base64') %>" src="data:image/<%= fruit.itemImage.contentType %>;base64,<%= fruit.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= fruit.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= fruit.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold"><%= fruit.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="row">
+                <a class="text-center text-success h6 py-3" href="/category/beverage">VIEW MORE >></a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row border-bottom mb-3">
+                <div class="text-center h3">Meats</div>
+            </div>
+            <div class="row justify-content-around">
+                <% meats.forEach(function(meat) { %>
+                    <div class="col-lg-2 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2"  data-base64="<%= meat.itemImage.data.toString('base64') %>" src="data:image/<%= meat.itemImage.contentType %>;base64,<%= meat.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= meat.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= meat.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold"><%= meat.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="row">
+                <a class="text-center text-success h6 py-3" href="/category/beverage">VIEW MORE >></a>
+            </div>
+        </div>
+
+
+        <%- include("./partials/footer.ejs") %>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', ()=> {
+                if(document.getElementById('errMessage')){
+                    let loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
+                    loginModal.show();
+                    let container = document.getElementById('loginModalContainer');
+                    errorMessage = document.getElementById('errMessage');
+                    errorMessage.style = null
+                    container.insertBefore(errorMessage, container.children[1]);
+                }
+                
+            })
+        </script>
+    </body>
+</html>

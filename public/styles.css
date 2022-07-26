@@ -1,0 +1,13 @@
+.carousel {
+    border-radius: 55px 55px 55px 55px;
+    overflow: hidden;
+}
+
+.btn-size {
+    width: 100px;
+}
+
+#map {
+    height: 400px;
+    width: 80%px;
+  }

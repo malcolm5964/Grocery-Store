@@ -1,0 +1,100 @@
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+    
+    <body>
+        <%- include("./partials/nav.ejs") %>
+        
+        <div class="container" id="mainContainer">
+            <div class="row mt-5"><h1><%= title %></h1></div>
+
+            <div class="row justify-content-start align-items-center py-5 border-bottom">
+                    <p class="col-1 fw-bold m-0">Sort by</p>
+
+                    <div class="dropdown col-2">
+                        <button class="btn btn-sm dropdown-toggle fw-bold" id="dropdownBtn" type="button" data-bs-toggle="dropdown" >Best Selling</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item fw-bold" onclick="sort('acse', this.innerHTML)">Price - Low to High</a>
+                            <a class="dropdown-item fw-bold" onclick="sort('desc', this.innerHTML)">Price - High to Low</a>
+                        </div>
+                    </div>
+            </div>
+
+
+            <div class="row" id="date">
+                <% itemsDate.forEach(function(item) { %>
+                    <div class="col-lg-3 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= item.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold">$<%= item.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+            <!-- acse -->
+            <div class="row" id="acse" style="display: none">
+                <% itemsAcse.forEach(function(item) { %>
+                    <div class="col-lg-3 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= item.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold">$<%= item.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+            <!-- desc -->
+            <div class="row" id="desc" style="display: none">
+                <% itemsDesc.forEach(function(item) { %>
+                    <div class="col-lg-3 col-sm-4" >
+                        <div class="card mb-3">
+                            <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= item.itemName %></h5>
+                                <p class="card-text">By <span class="text-success"><%= item.itemBrand %></span></p>
+                                <div class="row align-items-center justify-content-around">
+                                    <div class="col"><p class="card-text text-success fw-bold">$<%= item.itemPrice %></p></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+
+
+
+        </div>
+
+        <%- include("./partials/footer.ejs") %>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script>
+            let currentSort = "date"
+            function sort(x, y){
+                //remove current sort
+                document.getElementById(currentSort).style.display = "none";
+                
+                //add new sort
+                document.getElementById(x).style.display = "flex";
+                document.getElementById("dropdownBtn").innerHTML = y;
+                currentSort = x;
+            }
+        </script>
+    </body>
+</html>   
+    
+    
