@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: false }));
 //Authentication Middleware
 app.use(flash())
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'secretsession',
   resave: false,
   saveUninitialized: false
 }))
