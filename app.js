@@ -19,7 +19,8 @@ initializePassport(passport)
 const app = express();
 
 //connect to mongoDB
-const dbURI = process.env.MONGODB_URI;
+const dbURI = `mongodb+srv://malcolm:t0012069z@cluster0.2ncpgiw.mongodb.net/creditBlogs`;
+//const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {console.log("MongoDB Connected")})
@@ -87,4 +88,4 @@ app.use('/account', accountRoutes);
 
 
 
-app.listen(process.env.PORT || 3000, () => {console.log("Go to http://localhost:3000/")})
+app.listen(process.env.PORT || 5000, () => {console.log("Go to http://localhost:5000/")})
