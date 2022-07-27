@@ -22,6 +22,11 @@ const create_user = (req, res) => {
                 })
                 .catch(err => {
                     console.log(err);
+
+                    if(err._message == 'Account validation failed') {
+                        req.flash('message', 'Username already taken')
+                        res.redirect('/')
+                    }
                 });
         }
     }) 

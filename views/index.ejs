@@ -5,9 +5,10 @@
         <%- include("./partials/nav.ejs") %>
 
         <!-- Display login error to execute script below @141-->
-        <% if (messages.error) { %>
+        <% if (messages.error || message != "") { %>
             <div id='errMessage' style="display: none;" class="alert alert-danger" role="alert">
                 <%= messages.error %>
+                <%= message %>
             </div>
         <% } %>
 
@@ -142,7 +143,17 @@
         
         <script>
             document.addEventListener('DOMContentLoaded', ()=> {
-                if(document.getElementById('errMessage')){
+                
+                if((document.getElementById('errMessage').textContent).includes('Username already taken')){
+                    let signupModal = new bootstrap.Modal(document.getElementById('signupModal'), {});
+                    signupModal.show();
+                    let container = document.getElementById('signupModalContainer');
+                    errorMessage = document.getElementById('errMessage');
+                    errorMessage.style = null
+                    container.insertBefore(errorMessage, container.children[1]);
+                    setTimeout(() => document.querySelector('.alert').remove(), 5000);
+                }
+                else {
                     let loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
                     loginModal.show();
                     let container = document.getElementById('loginModalContainer');

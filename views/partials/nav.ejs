@@ -21,10 +21,15 @@
         <li class="nav-item">
           <a class="nav-link fw-bold text-dark" href="/contact">Contact</a>
         </li>
+        <% if(typeof user == 'object' && user.username == "admin") { %>
+        <li class="nav-item">
+          <a class="nav-link fw-bold text-dark" href="/contact">Post Item</a>
+        </li> 
+        <% } %>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 me-5">
         <li class="nav-item"><a id="cart_btn" class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasCart"><img src="/cart.svg" alt="" width="40" height="35"></li></a>
-        <% if(!user) { %>
+        <% if(typeof user !== 'object') { %>
         <li><a class="nav-link fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#loginModal"><img src="/person-fill.svg" alt="" width="40" height="35"></i>Login</a></li>
         <% } else { %>
           <li class="navbar-nav align-items-center"><a>Hello, <%= user.username %></a></li>
@@ -63,7 +68,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="container" id="signUpContainer">
+        <div class="container" id="signupModalContainer">
           <p class="text-center h1 fw-bold mb-5">SIGN UP</p>
           <form id="signup_form" action="/account/signup" method="POST">
             <div class="text-center mb-3"><img src="/person-fill.svg" class="me-3" alt="" width="25" height="25"><input type="text" name="username" placeholder="Your Username" size="30"></div>
@@ -106,7 +111,7 @@
       let passwordErrorMessage = document.createElement("div");
       passwordErrorMessage.className = "alert alert-danger";
       passwordErrorMessage.innerText = "Password is different";
-      let container = document.getElementById('signUpContainer');
+      let container = document.getElementById('signupModalContainer');
       document.getElementById("signupBtn").disabled = true;
       container.insertBefore(passwordErrorMessage, container.children[1]);
       setTimeout(() => document.querySelector('.alert').remove(), 3000);

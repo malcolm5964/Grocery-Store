@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
             if(err) {
               console.log(err);
             } else {
-              res.render('index', {beverages: beverages, fruits: fruits, meats: meats, title: "Malcolm Mart", user: req.user});
+              res.render('index', {beverages: beverages, fruits: fruits, meats: meats, title: "Malcolm Mart", user: req.user, message: req.flash('message')});
             }
             }) 
           }
