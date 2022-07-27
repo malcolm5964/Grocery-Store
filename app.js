@@ -1,12 +1,10 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
+require('dotenv').config({path: path.join(__dirname, '.env'), debug:true})
 
 //For Route
 const Item = require('./models/item');
@@ -19,7 +17,7 @@ initializePassport(passport)
 const app = express();
 
 //connect to mongoDB
-const dbURI = `mongodb+srv://malcolm:t0012069z@cluster0.2ncpgiw.mongodb.net/creditBlogs`;
+const dbURI = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@cluster0.2ncpgiw.mongodb.net/creditBlogs`;
 //const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -39,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 //Authentication Middleware
 app.use(flash())
 app.use(session({
-  secret: 'secretsession',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
