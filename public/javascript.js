@@ -38,7 +38,8 @@ class UI {
                 //Get total Price
                 let totalPrice = 0
                 cartItems.forEach((item, index) => {
-                    totalPrice = totalPrice + (item.itemPrice * parseInt(item.itemQuantity));
+                    totalPrice = totalPrice + (parseInt(((item.itemPrice).substring(1))) * parseInt(item.itemQuantity));
+                    //totalPrice = totalPrice + (item.itemPrice * parseInt(item.itemQuantity));
                 })
         
                 //Display checkout button
@@ -46,7 +47,7 @@ class UI {
                     const buttonRow = document.createElement('div');
                     buttonRow.className = "cartBtn row border-top border-bottom mt-5 py-2 ms-1"
                     buttonRow.innerHTML = `
-                    <div class="row justify-content-between  mb-2"><p class="col fw-bold mb-0">Subtotal</p><p class="col fw-bold text-end mb-0 cartTotalPrice">${totalPrice}</p></div>
+                    <div class="row justify-content-between  mb-2"><p class="col fw-bold mb-0">Subtotal</p><p class="col fw-bold text-end mb-0 cartTotalPrice">$${totalPrice}</p></div>
                     <div class="row "><button type=button class="btn btn-success">Proceed to checkout</button></div>
                     `
                     cart.appendChild(buttonRow);

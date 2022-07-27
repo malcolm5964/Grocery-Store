@@ -19,7 +19,7 @@ initializePassport(passport)
 const app = express();
 
 //connect to mongoDB
-const dbURI = "mongodb+srv://process.env.username:process.env.password@cluster0.2ncpgiw.mongodb.net/creditBlogs";
+const dbURI = `mongodb+srv://malcolm:t0012069z@cluster0.2ncpgiw.mongodb.net/creditBlogs`;
 //const dbURI = process.env.MONGODB_URI;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -82,6 +82,9 @@ app.use('/category', categoryRoutes);
 
 //Account Route
 app.use('/account', accountRoutes);
+
+
+
 
 
 

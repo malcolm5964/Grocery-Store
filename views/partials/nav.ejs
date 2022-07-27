@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg " style="background-color: #d4ffe1">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
   <div class="container-fluid ps-5">
     <a class="navbar-brand" href="/">
       <img src="/navbar-icon.png" width="60" height="50">
@@ -27,14 +27,8 @@
         <% if(!user) { %>
         <li><a class="nav-link fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#loginModal"><img src="/person-fill.svg" alt="" width="40" height="35"></i>Login</a></li>
         <% } else { %>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"><img src="/box-arrow-right.svg" alt="" width="40" height="35"><%= user.username %></a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">My Profile</a></li>
-                <li><a class="dropdown-item"><%= user.username %></a></li>
-                <li><a class="dropdown-item" href="/account/logout">Sign Out</a></li>
-            </ul>
-          </li>
+          <li class="navbar-nav align-items-center"><a>Hello, <%= user.username %></a></li>
+        <li class="nav-item"><a class="nav-link" href="/account/logout"><img src="/box-arrow-right.svg" alt="" width="40" height="35"></li></a>
         <% } %>
       </ul>
     </div>
@@ -58,7 +52,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="text-center"><button type="button" class="btn btn-secondary" data-bs-target="#signUpModal" data-bs-toggle="modal">Create New Account</button></div>
+        <div class="text-center"><button type="button" class="btn btn-info" data-bs-target="#signUpModal" data-bs-toggle="modal">Create New Account</button></div>
       </div>
     </div>
   </div>
@@ -69,19 +63,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="container">
+        <div class="container" id="signUpContainer">
           <p class="text-center h1 fw-bold mb-5">SIGN UP</p>
           <form id="signup_form" action="/account/signup" method="POST">
             <div class="text-center mb-3"><img src="/person-fill.svg" class="me-3" alt="" width="25" height="25"><input type="text" name="username" placeholder="Your Username" size="30"></div>
             <div class="text-center mb-3"><img src="/envelope-fill.svg" class="me-3" alt="" width="25" height="25"><input type="email" name="email" placeholder="Your Email" size="30"></div>
-            <div class="text-center mb-3"><img src="/lock-fill.svg" class="me-3" alt="" width="25" height="25"><input type="password" name="password" placeholder="Password" size="30"></div>
-            <div class="text-center mb-3"><img src="/key-fill.svg" class="me-3" alt="" width="25" height="25"><input type="password" placeholder="Repeat your passowrd" size="30"></div>
-            <div class="text-center"><button type="submit" class="btn btn-success">CREATE ACCOUNT</button></div>
+            <div class="text-center mb-3"><img src="/lock-fill.svg" class="me-3" alt="" width="25" height="25"><input id="password" type="password" name="password" placeholder="Password" size="30"></div>
+            <div class="text-center mb-3"><img src="/key-fill.svg" class="me-3" alt="" width="25" height="25"><input id="repeatPassword" type="password" placeholder="Repeat your passowrd" size="30" onkeyup="check()"></div>
+            <div class="text-center"><button type="submit" id="signupBtn" class="btn btn-success">CREATE ACCOUNT</button></div>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <div class="text-center"><button type="button" class="btn btn-secondary" data-bs-target="#loginModal" data-bs-toggle="modal">Login</button></div>
+        <div class="text-center"><button type="button" class="btn btn-info" data-bs-target="#loginModal" data-bs-toggle="modal">Login Page</button></div>
       </div>
     </div>
   </div>
@@ -97,5 +91,27 @@
     <!-- Include innerHTML-->
   </div>
 </div>
+
+
+<!-- Script for re-enter password-->
+<script>
+  function check() {
+    if(document.getElementById("password").value == document.getElementById("repeatPassword").value) {
+      document.getElementById("signupBtn").disabled = false;
+
+    } else if(document.querySelector('.alert')) {
+      document.getElementById("signupBtn").disabled = true;
+
+    } else {
+      let passwordErrorMessage = document.createElement("div");
+      passwordErrorMessage.className = "alert alert-danger";
+      passwordErrorMessage.innerText = "Password is different";
+      let container = document.getElementById('signUpContainer');
+      document.getElementById("signupBtn").disabled = true;
+      container.insertBefore(passwordErrorMessage, container.children[1]);
+      setTimeout(() => document.querySelector('.alert').remove(), 3000);
+    }
+  }
+</script>
 
 
