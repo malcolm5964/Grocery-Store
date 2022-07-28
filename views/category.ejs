@@ -23,7 +23,7 @@
             <div class="row" id="date">
                 <% itemsDate.forEach(function(item) { %>
                     <div class="col-lg-3 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= item.itemName %></h5>
@@ -42,7 +42,7 @@
             <div class="row" id="acse" style="display: none">
                 <% itemsAcse.forEach(function(item) { %>
                     <div class="col-lg-3 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= item.itemName %></h5>
@@ -61,7 +61,7 @@
             <div class="row" id="desc" style="display: none">
                 <% itemsDesc.forEach(function(item) { %>
                     <div class="col-lg-3 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2" data-base64="<%= item.itemImage.data.toString('base64') %>" src="data:image/<%= item.itemImage.contentType %>;base64,<%= item.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= item.itemName %></h5>

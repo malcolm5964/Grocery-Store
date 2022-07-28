@@ -75,6 +75,10 @@ app.get('/contact', (req, res) => {
   res.render('contact', {title: "Contact", user: req.user});
 })
 
+app.get('/checkout', checkAuthenticated, (req, res) => {
+  res.render('checkout', {title: "Checkout", user: req.user});
+})
+
 //Categroy Route
 app.use('/category', categoryRoutes);
 
@@ -83,7 +87,12 @@ app.use('/account', accountRoutes);
 
 
 
-
+function checkAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/')
+}
 
 
 app.listen(process.env.PORT || 5000, () => {console.log("Go to http://localhost:5000/")})

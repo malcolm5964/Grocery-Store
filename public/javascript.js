@@ -1,20 +1,22 @@
 
 
 class Cart {
-    constructor(itemName, itemPrice, itemImage, itemQuantity) {
+    constructor(itemName, itemPrice, itemImage, itemBrand, itemQuantity) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImage = itemImage;
+        this.itemBrand = itemBrand;
         this.itemQuantity = itemQuantity;
     }
 }
 
 class UI {
+
+    //UI for displaying cart item when cart button is click
     static displayCart() {
         const cart = document.querySelector(".offcanvas-body");
         cart.textContent ='';
         const cartItems = Store.getCart();
-        console.log(cartItems);
         cartItems.forEach((cartItem) => UI.addItemToCart(cartItem));
         UI.displayCheckout()
 
@@ -32,28 +34,7 @@ class UI {
 
     }
 
-    static displayCheckout() {
-                const cartItems = Store.getCart();
-                const cart = document.querySelector(".offcanvas-body");
-                //Get total Price
-                let totalPrice = 0
-                cartItems.forEach((item, index) => {
-                    totalPrice = totalPrice + (parseInt(((item.itemPrice).substring(1))) * parseInt(item.itemQuantity));
-                    //totalPrice = totalPrice + (item.itemPrice * parseInt(item.itemQuantity));
-                })
-        
-                //Display checkout button
-                if(!cartItems === undefined || !cartItems.length == 0) {
-                    const buttonRow = document.createElement('div');
-                    buttonRow.className = "cartBtn row border-top border-bottom mt-5 py-2 ms-1"
-                    buttonRow.innerHTML = `
-                    <div class="row justify-content-between  mb-2"><p class="col fw-bold mb-0">Subtotal</p><p class="col fw-bold text-end mb-0 cartTotalPrice">$${totalPrice}</p></div>
-                    <div class="row "><button type=button class="btn btn-success">Proceed to checkout</button></div>
-                    `
-                    cart.appendChild(buttonRow);
-                }
-    }
-
+    //UI for adding items into cart
     static addItemToCart(cartItem) {
         const cart = document.querySelector(".offcanvas-body");
         const row = document.createElement('div');
@@ -78,6 +59,32 @@ class UI {
         cart.appendChild(row);
     }
 
+
+    //display checkout button and price
+    static displayCheckout() {
+                const cartItems = Store.getCart();
+                const cart = document.querySelector(".offcanvas-body");
+                //Get total Price
+                let totalPrice = 0
+                cartItems.forEach((item, index) => {
+                    totalPrice = totalPrice + (parseInt(((item.itemPrice).substring(1))) * parseInt(item.itemQuantity));
+                    //totalPrice = totalPrice + (item.itemPrice * parseInt(item.itemQuantity));
+                })
+        
+                //Display checkout button
+                if(!cartItems === undefined || !cartItems.length == 0) {
+                    const buttonRow = document.createElement('div');
+                    buttonRow.className = "cartBtn row border-top border-bottom mt-5 py-2 ms-1"
+                    buttonRow.innerHTML = `
+                    <div class="row justify-content-between  mb-2"><p class="col fw-bold mb-0">Subtotal</p><p class="col fw-bold text-end mb-0 cartTotalPrice">$${totalPrice}</p></div>
+                    <div class="row "><button type="button" class="btn btn-success" onclick="location.href='/checkout';">Proceed to checkout</button></div>
+                    `
+                    cart.appendChild(buttonRow);
+                }
+    }
+
+    
+    //UI for deleting item in cart
     static deleteCartItem(el) {
         el.parentElement.parentElement.remove()
         const cartItems = Store.getCart();
@@ -88,6 +95,47 @@ class UI {
         let cartTotalPrice = document.querySelector(".cartTotalPrice")
         cartTotalPrice.innerHTML = "$"+totalPrice
     }
+
+    //To display items at checkout page
+    static displayCheckoutPage() {
+        const cartItems = Store.getCart();
+        //Get total price
+        let totalPrice = 0
+        cartItems.forEach((item, index) => {
+            totalPrice = totalPrice + (parseInt(((item.itemPrice).substring(1))) * parseInt(item.itemQuantity));
+        })
+        document.getElementById('totalPrice').innerHTML = "$" + totalPrice;
+
+        cartItems.forEach((cartItem) => {
+
+        const cart = document.querySelector("#checkoutContainer");
+        const row = document.createElement('div');
+        row.className = "row flex-nowrap py-4 border-bottom";
+
+        row.innerHTML = `
+        <div class="col"><img class="img-fluid" src="data:image/png;base64,${cartItem.itemImage}"></div>
+        <div class="col-7">
+            <h4>${cartItem.itemName}</h5>
+            <p>By: ${cartItem.itemBrand}</p>
+            <p class="text-success">In Stock</p>
+            <p>Qty: ${cartItem.itemQuantity}</p>
+        </div>
+        <div class="col">
+            <h5>${cartItem.itemPrice}</h5>
+        </div>
+        `;
+
+        cart.appendChild(row)
+        })
+
+
+
+
+        
+    }
+
+
+    
 }
 
 
@@ -110,7 +158,6 @@ class Store {
     }
 
     static addCart(newCartItem) {
-        console.log("adding: " + newCartItem.itemName + newCartItem.itemQuantity);
         let cartItems = Store.getCart();
         let itemExist = cartItems.some(obj => obj.itemName === newCartItem.itemName);
         if(itemExist) {
@@ -151,14 +198,13 @@ cartBtn.addEventListener('click', e => {
 
 for(i=0; i < addBtn.length; i++) {
     addBtn[i].addEventListener('click', e => {
-        console.log("click")
-        console.log(e.target.parentElement.parentElement.parentElement.parentElement.firstElementChild.dataset.base64)
         //Get item value
         let itemName = e.target.parentElement.parentElement.parentElement.firstElementChild.textContent;
         let itemPrice = e.target.parentElement.parentElement.firstElementChild.firstElementChild.textContent;
         let itemImage = e.target.parentElement.parentElement.parentElement.parentElement.firstElementChild.dataset.base64;
+        let itemBrand = (e.target.parentElement.parentElement.parentElement.children)[1].firstElementChild.textContent;
         //instantiate new Cart Item
-        let newCartItem = new Cart(itemName, itemPrice, itemImage, 1);
+        let newCartItem = new Cart(itemName, itemPrice, itemImage, itemBrand, 1);
     
         //Add Cart Item to storage
         Store.addCart(newCartItem);
@@ -167,6 +213,15 @@ for(i=0; i < addBtn.length; i++) {
         UI.displayCart();
     })
 }
+
+//Event: Display checkout page
+
+document.addEventListener('DOMContentLoaded', () => {
+    if(document.body.classList.contains('checkout')) {
+        console.log()
+        UI.displayCheckoutPage();
+    }
+})
 
 
 

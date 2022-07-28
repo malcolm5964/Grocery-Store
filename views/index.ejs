@@ -67,14 +67,14 @@
             <div class="row justify-content-around">
                 <% beverages.forEach(function(beverage) { %>
                     <div class="col-lg-2 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2" data-base64="<%= beverage.itemImage.data.toString('base64') %>" src="data:image/<%= beverage.itemImage.contentType %>;base64,<%= beverage.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= beverage.itemName %></h5>
                                 <p class="card-text">By <span class="text-success"><%= beverage.itemBrand %></span></p>
                                 <div class="row align-items-center justify-content-around">
                                     <div class="col"><p class="card-text text-success fw-bold">$<%= beverage.itemPrice %></p></div>
-                                    <div class="col"><button type="button" class="btn btn-success btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
+                                    <div class="col"><button type="button" class="btn btn-success btn-sm btn-size add_cart"><img class="me-3" src="/cart.svg" alt="" width="20" height="20">Add</button></div>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
             <div class="row justify-content-around">
                 <% fruits.forEach(function(fruit) { %>
                     <div class="col-lg-2 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2"  data-base64="<%= fruit.itemImage.data.toString('base64') %>" src="data:image/<%= fruit.itemImage.contentType %>;base64,<%= fruit.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= fruit.itemName %></h5>
@@ -119,7 +119,7 @@
             <div class="row justify-content-around">
                 <% meats.forEach(function(meat) { %>
                     <div class="col-lg-2 col-sm-4" >
-                        <div class="card mb-3">
+                        <div class="card border-0 mb-3">
                             <img class="card-img-top img-wrap p-2"  data-base64="<%= meat.itemImage.data.toString('base64') %>" src="data:image/<%= meat.itemImage.contentType %>;base64,<%= meat.itemImage.data.toString('base64') %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= meat.itemName %></h5>
@@ -165,5 +165,6 @@
                 
             })
         </script>
+        
     </body>
 </html>
